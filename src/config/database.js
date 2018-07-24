@@ -1,4 +1,4 @@
 
 module.exports = {
-    'url': 'mongodb://localhost/geolocalizacion'
+    'url': 'mongodb://localhost/geolocalizaciondb'
 };
