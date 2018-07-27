@@ -6,8 +6,9 @@
     <title>Profile page</title>
     <% include partials/head %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 </head>
-<body>
+<body onload="updateClock(), getLocation(), updateDate()"> 
     <div class="container">
         <header class="text-center">
             <h1>Profile page</h1>
@@ -23,24 +24,66 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">
-                            <span class="fa fa-user"></span> Local
+                            <span class="fa fa-user"></span> <%= user.email%>
                         </h3>
-                        <p>
-                            <strong> id </strong>: <%= user._id %> <br>
-                            <strong>email</strong>: <%= user.local.email%> <br>
-                            <strong>password</strong>: <%= user.local.password %> 
-
-                        </p>
+                        <p id="tiempo"></p>
+                        <p id="fecha"></p>
+                        <p id="coordenadas"></p>
                         <a href="/logout" class="btn btn-light"></a>
                     </div>
 
                 </div>
-
             </div>
-
         </div>
-
     </div>
-    
+
+    <script>
+
+        var coordenadas = document.getElementById("coordenadas");
+        var tiempo = document.getElementById("tiempo");
+        var fecha = document.getElementById("fecha");
+        var num = 0;    
+
+        function updateDate(){
+            actualDate = new Date()
+            year = actualDate.getFullYear()
+            month = actualDate.getMonth() + 1
+            day = actualDate.getDay()
+
+            showDate = day + "/" + month + "/" + year
+            fecha.innerHTML = "<strong> Fecha: </strong> " + showDate
+            setTimeout("updateDate()",100000) 
+
+        }
+
+        function updateClock(){ 
+   	        actualMoment = new Date() 
+   	        hour = actualMoment.getHours() 
+   	        min = actualMoment.getMinutes() 
+   	        sec = actualMoment.getSeconds() 
+            
+            showClock = hour + " : " + min + " : " + sec 
+            tiempo.innerHTML = "<strong> Hora: </strong> " + showClock
+
+   	        setTimeout("updateClock()",1000) 
+        } 
+
+        
+        function showPosition(position) {
+            coordenadas.innerHTML = " <strong> Latitude: </strong> " + position.coords.latitude + 
+            "<br> <strong> Longitude: </strong> " + position.coords.longitude; 
+            console.log(num);
+            num = num + 1;
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+            setTimeout("getLocation()",5000) 
+        }        
+    </script>
 </body>
 </html>
