@@ -10,10 +10,10 @@ const cookieParser = require('cookie-parser'); // Modulo para poder administrar 
 const bodyParser = require('body-parser'); //Permite procesar la información del navegador
 const session = require('express-session');
 
-const { url } = require('./config/database.js');
+const config = require('./config/database.js');
 
-mongoose.connect(url, {
-	useMongoClient: true
+mongoose.connect(config.db, {
+    useMongoClient: true
 });
 
 require('./config/passport')(passport);
