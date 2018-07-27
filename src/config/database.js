@@ -1,6 +1,6 @@
 var path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
-    env = process.env.NODE_ENV || 'development';
+    env = process.env.NODE_ENV || 'production';
 
 var config = {
   development: {
@@ -14,7 +14,6 @@ var config = {
   },
 
   test: {
-//    baseUrl: "/nodeArticulos/",
     baseUrl: "/",
     root: rootPath,
     app: {
