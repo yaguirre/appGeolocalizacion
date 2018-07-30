@@ -1,4 +1,4 @@
-onst Location = require('../models/location');
+const Location = require('../models/location');
 
 module.exports = (app, passport) => {
 
