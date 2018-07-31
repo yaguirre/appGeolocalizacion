@@ -15,7 +15,7 @@
      </style>
     
 </head>
-<body onload="updateClock(), getLocation('<%= user.email%>'), updateDate()"> 
+<body onload="updateClock(), getLocation(), updateDate()"> 
     <div class="container">
         <header class="text-center">
             <h1>Profile page</h1>
@@ -36,7 +36,7 @@
                         <p id="tiempo"></p>
                         <p id="fecha"></p>
                         <p id="coordenadas"></p>
-                        <form id="info" method="post" action="/location" name="geolocation">
+                        <form id="info" name="geolocation">
                             <input type="hidden" name="email" value="">
                             <input type="hidden" name="latitude" value="">  
                             <input type="hidden" name="longitude" value="">
@@ -58,20 +58,29 @@
     </div>
 
     
-
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <script>
-
         var lat;
         var lon;
         var usuario;
+        $.ajax({
+            url: "/getUsername",
+            method: "GET",
+            dataType: "json",
+            success: function(response){
+                usuario = response.username;
+            }
+        })
         var map;
         var coordenadas = document.getElementById("coordenadas");
         var tiempo = document.getElementById("tiempo");
         var fecha = document.getElementById("fecha");
         var num = 0;    
-
-        function getLocation(user) {
-            usuario = user
+        setInterval(getLocation, 5000);
+        function getLocation() {
             console.log(usuario)
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -80,16 +89,27 @@
                 x.innerHTML = "Geolocation is not supported by this browser.";
             }
         }
-
         function saveLocation(){
-            console.log("Lat: " + lat + ", Long: " + lon + " -   " + num)
-            document.geolocation.email.value = usuario
-            document.geolocation.latitude.value = lat
-            document.geolocation.longitude.value = lon
+            console.log("usuario: " + usuario + " Lat: " + lat + ", Long: " + lon + " -   " + num)
+            $.ajax({
+                url:"/location",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                method:"POST",
+                dataType:"json",
+                data:JSON.stringify({
+                    email:usuario,
+                    latitude:lat,
+                    longitude:lon
+                })
+            })
+            //document.geolocation.email.value = usuario
+            //document.geolocation.latitude.value = lat
+            //document.geolocation.longitude.value = lon
             addMarker()
-            document.getElementById("info").submit();
+            //document.getElementById("info").submit();
         }
-
         function initMap() {
             //options
             var options = {
@@ -98,8 +118,20 @@
             }
             //new map
             map = new google.maps.Map(document.getElementById('map'), options);
+            
+            $.ajax({
+                url:"/getLocations",
+                method:"GET",
+                dataType:"json",
+                success: function(response){
+                    response.locations.forEach(function(location) {
+                        lat = location.latitude;
+                        lon = location.longitude;
+                        addMarker();
+                    }); 
+                }
+            })
         }
-
         function addMarker(){
             var coordinates = new google.maps.LatLng(lat,lon)
             var marker = new google.maps.Marker({
@@ -107,19 +139,15 @@
                 map:map
             })
         }
-
         function updateDate(){
             actualDate = new Date()
             year = actualDate.getFullYear()
             month = actualDate.getMonth() + 1
             day = actualDate.getDay()
-
             showDate = day + "/" + month + "/" + year
             fecha.innerHTML = "<strong> Fecha: </strong> " + showDate
             setTimeout("updateDate()",100000) 
-
         }
-
         function updateClock(){ 
    	        actualMoment = new Date() 
    	        hour = actualMoment.getHours() 
@@ -128,7 +156,6 @@
             
             showClock = hour + " : " + min + " : " + sec 
             tiempo.innerHTML = "<strong> Hora: </strong> " + showClock
-
    	        setTimeout("updateClock()",1000) 
         } 
         
@@ -141,8 +168,8 @@
             console.log(lon)
             console.log(num);
             num = num + 1;
+            saveLocation();
         }
-
         //function getLocation() {
           //  if (navigator.geolocation) {
             //    navigator.geolocation.getCurrentPosition(showPosition);
