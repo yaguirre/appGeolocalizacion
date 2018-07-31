@@ -20,7 +20,7 @@ services:
     depends_on:
       - mongo-server   
     environment: 
-      - NODE_ENV=test
+      - NODE_ENV=production
   mongo-server:
     container_name: mongo-server
     image: mongo
