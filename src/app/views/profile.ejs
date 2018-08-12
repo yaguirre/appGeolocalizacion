@@ -79,15 +79,22 @@
         var tiempo = document.getElementById("tiempo");
         var fecha = document.getElementById("fecha");
         var num = 0;    
+<<<<<<< HEAD
 
         setInterval(getLocation, 5000);
 
 
+=======
+        setInterval(getLocation, 5000);
+>>>>>>> feb5322c3b969623b65d081e62882aa7a855c44f
         function getLocation() {
             console.log(usuario)
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
+<<<<<<< HEAD
 
+=======
+>>>>>>> feb5322c3b969623b65d081e62882aa7a855c44f
                 
             }else {
                 x.innerHTML = "Geolocation is not supported by this browser.";
@@ -95,7 +102,10 @@
         }
         function saveLocation(){
             console.log("usuario: " + usuario + " Lat: " + lat + ", Long: " + lon + " -   " + num)
+<<<<<<< HEAD
 
+=======
+>>>>>>> feb5322c3b969623b65d081e62882aa7a855c44f
             $.ajax({
                 url:"/location",
                 headers:{
@@ -136,7 +146,10 @@
                     }); 
                 }
             })
+<<<<<<< HEAD
 
+=======
+>>>>>>> feb5322c3b969623b65d081e62882aa7a855c44f
         }
         function addMarker(){
             var coordinates = new google.maps.LatLng(lat,lon)
