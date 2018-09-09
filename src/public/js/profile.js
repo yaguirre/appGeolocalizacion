@@ -21,11 +21,19 @@ function error(err) {
 
 var options = {
     enableHighAccuracy: false,
-    timeout: 5000,
     maximumAge: 0
 };
   
 navigator.geolocation.watchPosition(showPosition, error, options);
+function getLocation() {
+    console.log(usuario)
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+        
+    }else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
 function saveLocation(){
     console.log("usuario: " + usuario + " Lat: " + lat + ", Long: " + lon + " -   " + num)
     $.ajax({
