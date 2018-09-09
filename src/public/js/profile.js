@@ -13,17 +13,8 @@ var map;
 var coordenadas = document.getElementById("coordenadas");
 var tiempo = document.getElementById("tiempo");
 var fecha = document.getElementById("fecha");
-var num = 0;    
-setInterval(getLocation, 5000);
-function getLocation() {
-    console.log(usuario)
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        
-    }else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
+var num = 0;
+navigator.geolocation.watchPosition(showPosition, error, options);
 function saveLocation(){
     console.log("usuario: " + usuario + " Lat: " + lat + ", Long: " + lon + " -   " + num)
     $.ajax({
