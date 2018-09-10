@@ -6,29 +6,6 @@ module.exports = (app, passport) => {
         res.render('index');
     });
 
-    app.get('/login',(req, res) => {
-        res.render('login', {
-            message: req.flash('loginMessage')
-        });
-    });
-
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile',
-        failureRedirect: '/login',
-        failureFlash: true
-    }))
-
-    app.get('/signup', (req, res) => {
-        res.render('signup',{
-            message: req.flash('signupMessage')
-        });
-    });
-
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
-        failureFlash: true
-    }));
 
     app.get('/profile', isLoggedIn, (req, res) => {
         res.render('profile', {
@@ -44,11 +21,6 @@ module.exports = (app, passport) => {
         Location.find({user:req.user.email},function(err, locations){
             res.json({locations:locations});
         });
-    });
-
-    app.get('/logout', (req, res) => {
-        req.logout(); 
-        res.redirect('/');
     });
 
     app.post('/location', (req, res) => {
@@ -68,6 +40,20 @@ module.exports = (app, passport) => {
 
         res.json({message: "Exitasion"});
     });
+
+    router.get('/login', (req,res) => {
+        res.render('login')
+    });
+    
+    router.get('/logout', (req,res) => {
+        res.send('logging out')
+    });
+    
+    router.get('/google', (req,res) => {
+        //passporta
+        res.send('logging in with google')
+    });
+    
 };
 
 function isLoggedIn(req, res, next) {
