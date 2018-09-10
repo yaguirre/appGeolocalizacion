@@ -10,11 +10,9 @@ const cookieParser = require('cookie-parser'); // Modulo para poder administrar 
 const bodyParser = require('body-parser'); //Permite procesar la información del navegador
 const session = require('express-session');
 
-const { url } = require('./config/database.js');
+const config = require('./config/database.js');
 
-mongoose.connect(url, {
-	useMongoClient: true
-});
+mongoose.connect(config.db, {});
 
 require('./config/passport')(passport);
 
@@ -27,6 +25,7 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(session({
     secret: 'OHalsjjdflsslrwjs',
     resave: false,

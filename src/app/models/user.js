@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
+//Esquema del usuario en la base de datos
 const userSchema = new mongoose.Schema({
-    local: {
-        email: String,
-        password: String    
-    },
+    email: String,
+    password: String,
 });
 
 // Genera un hash para encriptar la contraseña
@@ -15,7 +14,7 @@ userSchema.methods.generateHash = function (password) {
 
 // Valida la contraseña
 userSchema.methods.validatePassword = function (password) {
-    return bcrypt.compareSync(password, this.local.password);
+    return bcrypt.compareSync(password, this.password);
 }
 
 //Crea el modelo para el usuario    

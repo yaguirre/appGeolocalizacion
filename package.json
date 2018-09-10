@@ -1,14 +1,14 @@
 {
   "name": "geolocalizacion",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node.js on Docker",
+  "author": "Yorman Aguirre  <yaguirre@eafit.edu.co>",
   "main": "app.js",
   "scripts": {
     "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",

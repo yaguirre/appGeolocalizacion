@@ -6,9 +6,16 @@
     <title>Profile page</title>
     <% include partials/head %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="main.js"></script>
+    <style>
+        /* Set the size of the div element that contains the map */
+       #map {
+         height: 400px;  /* The height is 400 pixels */
+         width: auto;  /* The width is the width of the web page */
+        }
+     </style>
+    
 </head>
-<body>
+<body onload="updateClock(), getLocation(), updateDate()"> 
     <div class="container">
         <header class="text-center">
             <h1>Profile page</h1>
@@ -24,24 +31,176 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">
-                            <span class="fa fa-user"></span> Local
+                            <span class="fa fa-user"></span> <%= user.email%>
                         </h3>
-                        <p>
-                            <strong> id </strong>: <%= user._id %> <br>
-                            <strong>email</strong>: <%= user.local.email%> <br>
-                            <strong>password</strong>: <%= user.local.password %> 
-
-                        </p>
+                        <p id="tiempo"></p>
+                        <p id="fecha"></p>
+                        <p id="coordenadas"></p>
+                        <form id="info" name="geolocation">
+                            <input type="hidden" name="email" value="">
+                            <input type="hidden" name="latitude" value="">  
+                            <input type="hidden" name="longitude" value="">
+                            <input type="button" value="Tomar" onclick="saveLocation()">
+                        </form>
                         <a href="/logout" class="btn btn-light"></a>
                     </div>
 
                 </div>
-
+                <div>
+                    <h3>Mis recorridos</h3>
+                    <!--The div element for the map -->
+                    <div id="map" style="position: relative; margin: left;"></div>
+                </div>
             </div>
-
+            
         </div>
-
+        
     </div>
+
     
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script>
+        var lat;
+        var lon;
+        var usuario;
+        $.ajax({
+            url: "/getUsername",
+            method: "GET",
+            dataType: "json",
+            success: function(response){
+                usuario = response.username;
+            }
+        })
+        var map;
+        var coordenadas = document.getElementById("coordenadas");
+        var tiempo = document.getElementById("tiempo");
+        var fecha = document.getElementById("fecha");
+        var num = 0;    
+<<<<<<< HEAD
+
+        setInterval(getLocation, 5000);
+
+
+=======
+        setInterval(getLocation, 5000);
+>>>>>>> feb5322c3b969623b65d081e62882aa7a855c44f
+        function getLocation() {
+            console.log(usuario)
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+<<<<<<< HEAD
+
+=======
+>>>>>>> feb5322c3b969623b65d081e62882aa7a855c44f
+                
+            }else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function saveLocation(){
+            console.log("usuario: " + usuario + " Lat: " + lat + ", Long: " + lon + " -   " + num)
+<<<<<<< HEAD
+
+=======
+>>>>>>> feb5322c3b969623b65d081e62882aa7a855c44f
+            $.ajax({
+                url:"/location",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                method:"POST",
+                dataType:"json",
+                data:JSON.stringify({
+                    email:usuario,
+                    latitude:lat,
+                    longitude:lon
+                })
+            })
+            //document.geolocation.email.value = usuario
+            //document.geolocation.latitude.value = lat
+            //document.geolocation.longitude.value = lon
+            addMarker()
+            //document.getElementById("info").submit();
+        }
+        function initMap() {
+            //options
+            var options = {
+                zoom:13,
+                center: new google.maps.LatLng(6.27053,-75.57211999999998)
+            }
+            //new map
+            map = new google.maps.Map(document.getElementById('map'), options);
+            
+            $.ajax({
+                url:"/getLocations",
+                method:"GET",
+                dataType:"json",
+                success: function(response){
+                    response.locations.forEach(function(location) {
+                        lat = location.latitude;
+                        lon = location.longitude;
+                        addMarker();
+                    }); 
+                }
+            })
+<<<<<<< HEAD
+
+=======
+>>>>>>> feb5322c3b969623b65d081e62882aa7a855c44f
+        }
+        function addMarker(){
+            var coordinates = new google.maps.LatLng(lat,lon)
+            var marker = new google.maps.Marker({
+                position: coordinates,
+                map:map
+            })
+        }
+        function updateDate(){
+            actualDate = new Date()
+            year = actualDate.getFullYear()
+            month = actualDate.getMonth() + 1
+            day = actualDate.getDay()
+            showDate = day + "/" + month + "/" + year
+            fecha.innerHTML = "<strong> Fecha: </strong> " + showDate
+            setTimeout("updateDate()",100000) 
+        }
+        function updateClock(){ 
+   	        actualMoment = new Date() 
+   	        hour = actualMoment.getHours() 
+   	        min = actualMoment.getMinutes() 
+   	        sec = actualMoment.getSeconds() 
+            
+            showClock = hour + " : " + min + " : " + sec 
+            tiempo.innerHTML = "<strong> Hora: </strong> " + showClock
+   	        setTimeout("updateClock()",1000) 
+        } 
+        
+        function showPosition(position) {
+            coordenadas.innerHTML = " <strong> Latitude: </strong> " + position.coords.latitude + 
+            "<br> <strong> Longitude: </strong> " + position.coords.longitude; 
+            lat = position.coords.latitude
+            lon = position.coords.longitude
+            console.log(lat)
+            console.log(lon)
+            console.log(num);
+            num = num + 1;
+            saveLocation();
+        }
+        //function getLocation() {
+          //  if (navigator.geolocation) {
+            //    navigator.geolocation.getCurrentPosition(showPosition);
+            //} else {
+              //  x.innerHTML = "Geolocation is not supported by this browser.";
+            //}
+            //setTimeout("getLocation()",5000) 
+        //} 
+        
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3rv19hs2bnXl941hjz9_BICT6MZa_HkY&callback=initMap">
+    </script>
 </body>
 </html>

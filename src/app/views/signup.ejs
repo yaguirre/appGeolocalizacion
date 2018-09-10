@@ -6,7 +6,6 @@
     <title>Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% include partials/head %>
-    <script src="main.js"></script>
 </head>
 <body class="signup">
     <div class="container">
@@ -23,7 +22,8 @@
                         </div>
                     <% } %>
 
-                    <form action="/signup" method="POST">
+                    <form action="/signup" method="post">
+                        <script>console.log("Aqui toy")</script>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" name="email" class="form-control">
@@ -33,6 +33,7 @@
                                 <input type="password" name="password" class="form-control">
                         </div>
                         <input type="submit" class="btn btn-dark btn-lg" value="Enviar">
+                        <script>console.log("Aqui toy 2")</script>
                     </form>
 
                     <hr>
