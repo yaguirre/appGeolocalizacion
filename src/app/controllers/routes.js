@@ -50,7 +50,7 @@ module.exports = (app, passport) => {
     });
     
     router.get('/google', (req,res) => {
-        //passport
+        //passporta
         res.send('logging in with google')
     });
     
