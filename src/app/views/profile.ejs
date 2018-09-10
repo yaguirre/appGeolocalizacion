@@ -6,9 +6,16 @@
     <title>Profile page</title>
     <% include partials/head %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="main.js"></script>
+    <style>
+        /* Set the size of the div element that contains the map */
+       #map {
+         height: 400px;  /* The height is 400 pixels */
+         width: auto;  /* The width is the width of the web page */
+        }
+     </style>
+    
 </head>
-<body>
+<body onload="updateClock(), updateDate()"> 
     <div class="container">
         <header class="text-center">
             <h1>Profile page</h1>
@@ -24,24 +31,40 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">
-                            <span class="fa fa-user"></span> Local
+                            <span class="fa fa-user"></span> <%= user.email%>
                         </h3>
-                        <p>
-                            <strong> id </strong>: <%= user._id %> <br>
-                            <strong>email</strong>: <%= user.local.email%> <br>
-                            <strong>password</strong>: <%= user.local.password %> 
-
-                        </p>
+                        <p id="tiempo"></p>
+                        <p id="fecha"></p>
+                        <p id="coordenadas"></p>
+                        <form id="info" name="geolocation">
+                            <input type="hidden" name="email" value="">
+                            <input type="hidden" name="latitude" value="">  
+                            <input type="hidden" name="longitude" value="">
+                            <input type="button" value="Tomar" onclick="getLocation()">
+                        </form>
                         <a href="/logout" class="btn btn-light"></a>
                     </div>
 
                 </div>
-
+                <div>
+                    <h3>Mis recorridos</h3>
+                    <!--The div element for the map -->
+                    <div id="map" style="position: relative; margin: left;"></div>
+                </div>
             </div>
-
+            
         </div>
-
+        
     </div>
+
     
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="/js/profile.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3rv19hs2bnXl941hjz9_BICT6MZa_HkY&callback=initMap">
+    </script>
 </body>
 </html>
