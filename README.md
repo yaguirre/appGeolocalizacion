@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+# appGeolocalizacion
+=======
+>>>>>>> 77d95351fee588612ba3afe3db2317366633956f
 # NodeJS appGeolocalizacion
 
 By: Yorman Andres Aguirre Martinez - yaguirre@eafit.edu.co
@@ -252,6 +256,10 @@ Instalar Docker
 * Añadimos una regla para HTTPS por el puerto 443
 * Guardamos
 
+<<<<<<< HEAD
+@Tópicos de telemática - 20182
+=======
 @Tópicos de telemática - 20182
 
 
+>>>>>>> 77d95351fee588612ba3afe3db2317366633956f
