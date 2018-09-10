@@ -41,15 +41,15 @@ module.exports = (app, passport) => {
         res.json({message: "Exitasion"});
     });
 
-    router.get('/login', (req,res) => {
+    app.get('/login', (req,res) => {
         res.render('login')
     });
     
-    router.get('/logout', (req,res) => {
+    app.get('/logout', (req,res) => {
         res.send('logging out')
     });
     
-    router.get('/google', (req,res) => {
+    app.get('/google', (req,res) => {
         //passporta
         res.send('logging in with google')
     });
