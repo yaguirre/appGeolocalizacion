@@ -9,6 +9,7 @@ const morgan = require('morgan'); // Permite definir los métodos http que llega
 const cookieParser = require('cookie-parser'); // Modulo para poder administrar las cookies
 const bodyParser = require('body-parser'); //Permite procesar la información del navegador
 const session = require('express-session');
+const passportSetup = require('./config/passport-setup');
 
 const config = require('./config/database.js');
 
