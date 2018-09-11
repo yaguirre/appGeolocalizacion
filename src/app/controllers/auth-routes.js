@@ -4,11 +4,11 @@ router.get('/login', (req,res) => {
     res.render('login')
 });
 
-app.get('/logout', (req,res) => {
+router.get('/logout', (req,res) => {
     res.send('logging out')
 });
 
-app.get('/auth0', (req,res) => {
+router.get('/auth0', (req,res) => {
     //passporta
     res.send('logging in with auth0')
 });
