@@ -1,6 +1,6 @@
 const express  = require('express');
 const app = express();
-
+const authRoutes = require('./app/controllers/auth-routes');
 const path = require('path');   //Permite manejar las rutas de las carpetas dentro del servidor y del SO
 const mongoose = require('mongoose'); // Permite realizar la conexión a mongodb
 const passport = require('passport');  //Permite definir la conexión de como autenticarnos
@@ -22,6 +22,7 @@ app.set('views', path.join(__dirname, './app/views'));
 app.set('view engine', 'ejs');
 
 // Middlewares
+app.use('/auth', authRoutes);
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));

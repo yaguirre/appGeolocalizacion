@@ -39,21 +39,7 @@ module.exports = (app, passport) => {
         })
 
         res.json({message: "Exitasion"});
-    });
-
-    app.get('/login', (req,res) => {
-        res.render('login')
-    });
-    
-    app.get('/logout', (req,res) => {
-        res.send('logging out')
-    });
-    
-    app.get('/google', (req,res) => {
-        //passporta
-        res.send('logging in with google')
-    });
-    
+    });   
 };
 
 function isLoggedIn(req, res, next) {
@@ -62,3 +48,4 @@ function isLoggedIn(req, res, next) {
     }
     return res.redirect('/');
 }
+
