@@ -4,7 +4,7 @@ const keys = require('./keys');
 const User = require('../app/models/user');
 
 
-
+console.log("ENTRA A PASSPORT SETUP");
 passport.use(
     new Auth0Strategy({
         domain: 'marami21.auth0.com',
