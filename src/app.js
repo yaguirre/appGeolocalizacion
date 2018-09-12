@@ -19,7 +19,8 @@ const config = require('./config/database.js');
 
 mongoose.connect(config.db, {});
 
-require('./config/passport')(passport);
+require('./config/passport-setup')(passports);
+//require('./config/passport')(passport);
 
 // Settings
 app.set('port', process.env.PORT || 3000);
