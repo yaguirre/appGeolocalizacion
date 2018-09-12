@@ -31,8 +31,10 @@ router.get('/auth0', passport.authenticate('auth0', {
 
 //callback route for auth0 to redirect to
 router.get('/auth0/redirect',(req,res) => {
-    res.send('ACAAA')
+    res.send("ACA");
 })
+
+
 
 /*
 router.get('/auth0', (req, res) => {
