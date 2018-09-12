@@ -4,6 +4,16 @@ const keys = require('./keys');
 const User = require('../app/models/user');
 
 
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id).then((user) => {
+        done(null, user);
+    });
+});
+
 passport.use(
     new Auth0Strategy({
         domain: 'marami21.auth0.com',
