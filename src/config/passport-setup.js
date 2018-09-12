@@ -10,7 +10,8 @@ passport.use(
         domain: 'marami21.auth0.com',
         callbackURL: '/auth/auth0/redirect', //sitio al que se redirecciona
         clientID: keys.auth0.clientID,
-        clientSecret: keys.auth0.clientSecret
+        //clientSecret: keys.auth0.clientSecret
+        clientSecret:"fdsfasdf"
     }, () => {
         console.log("function fired")
     })
