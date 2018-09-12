@@ -19,7 +19,7 @@ const config = require('./config/database.js');
 
 mongoose.connect(config.db, {});
 
-require('./config/passport-setup')(passports);
+//require('./config/passport-setup')(passports);
 //require('./config/passport')(passport);
 
 // Settings
