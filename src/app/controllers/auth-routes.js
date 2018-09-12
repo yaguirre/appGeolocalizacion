@@ -24,7 +24,8 @@ router.get('/auth0', passport.authenticate('auth0', {
 // callback route for auth0 e to redirect to
 router.get('/auth0/redirect', passport.authenticate('auth0'), (req, res) => {
     //res.send(req.user);
-    res.redirect('/index/');
+    //res.redirect('/index/');
+    res.send("you reached auth to the callback URL");
 });
 
 
