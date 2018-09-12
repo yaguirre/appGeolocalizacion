@@ -29,6 +29,10 @@ router.get('/auth0', passport.authenticate('auth0', {
     scope: ['profile']
 }));
 
+//callback route for auth0 to redirect to
+router.get('/auth0/redirect',(req,res) => {
+    res.send('ACAAA')
+})
 
 /*
 router.get('/auth0', (req, res) => {
