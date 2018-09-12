@@ -74,7 +74,7 @@ mongoose.connect(keys.mongodb.dbURI, () => {
 
 
 // Routes
-//require('./app/controllers/routes.js')(app,passport);
+require('./app/controllers/routes.js')(app,passport);
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
