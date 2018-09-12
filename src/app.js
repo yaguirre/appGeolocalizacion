@@ -10,7 +10,11 @@ const cookieParser = require('cookie-parser'); // Modulo para poder administrar 
 const bodyParser = require('body-parser'); //Permite procesar la información del navegador
 const session = require('express-session');
 const passportSetup = require('./config/passport-setup');
-
+var expressValidator = require('express-validator');
+var LocalStrategy = require('passport-local').Strategy;
+var mongo = require('mongodb');
+const keys = require('./config/keys');
+const cookieSession = require('cookie-session');
 const config = require('./config/database.js');
 
 mongoose.connect(config.db, {});
@@ -22,20 +26,52 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, './app/views'));
 app.set('view engine', 'ejs');
 
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [keys.session.cookieKey]
+  
+  }));
+
+
+
+
 // Middlewares
 app.use('/auth', authRoutes);
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+var sess = {
+    secret: 'CHANGE THIS SECRET',
+    cookie: {},
+    resave: false,
+    saveUninitialized: true
+  };
+  app.use(session(sess));
+  if (app.get('env') === 'production') {
+    sess.cookie.secure = true; // serve secure cookies, requires https
+  }
+
+/*
 app.use(session({
     secret: 'OHalsjjdflsslrwjs',
     resave: false,
     saveUninitialized: false
 }));
+*/
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+mongoose.connect(keys.mongodb.dbURI, () => {
+    console.log('connected to mongodb');
+  });
+
+
+
+
 
 // Routes
 require('./app/controllers/routes.js')(app,passport);
