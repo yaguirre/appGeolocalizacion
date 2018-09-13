@@ -8,7 +8,7 @@ console.log("ENTRA A PASSPORT SETUP");
 passport.use(
     new Auth0Strategy({
         domain: 'marami21.auth0.com',
-        callbackURL: '/auth/auth0/redirect', //sitio al que se redirecciona
+        callbackURL: '/auth/auth0/redirect',
         clientID: keys.auth0.clientID,
         clientSecret: keys.auth0.clientSecret
     }, () => {
