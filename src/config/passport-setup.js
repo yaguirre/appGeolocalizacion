@@ -11,7 +11,8 @@ passport.use(
         callbackURL: '/auth/auth0/redirect',
         clientID: keys.auth0.clientID,
         clientSecret: keys.auth0.clientSecret
-    }, () => {
+    }, (accessToken, refreshToken, profile, done) => {
         console.log("function fired")
+        console.log(profile)
     })
 );
