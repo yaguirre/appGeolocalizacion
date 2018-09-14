@@ -14,5 +14,12 @@ passport.use(
     }, (accessToken, refreshToken, profile, done) => {
         console.log("function fired")
         console.log(profile)
+        new User({
+            username: profile.nickname,
+            auth0id: profile.user_id,
+            name: profile.displayName
+        }).save().then((newUser) => {
+            console.log('new user created:' + newUser);
+        })
     })
 );
