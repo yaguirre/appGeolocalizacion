@@ -21,6 +21,7 @@ passport.use(
         clientID: keys.auth0.clientID,
         clientSecret: keys.auth0.clientSecret
     }, (accessToken, refreshToken, profile, done) => {
+        console.log(profile)
         User.findOne({auth0id: profile.user_id}).then((currentUser) => {
             if (currentUser){
                 console.log("User is ", currentUser);
