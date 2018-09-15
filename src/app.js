@@ -16,8 +16,7 @@ var mongo = require('mongodb');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const config = require('./config/database.js');
-
-mongoose.connect(config.db, {});
+//mongoose.connect(config.db, {});
 
 //require('./config/passport-setup')(passports);
 //require('./config/passport')(passport);
@@ -38,7 +37,18 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+mongoose.connect(keys.mongodb.dbURI, () => {
+    console.log('connected to mongodb');
+});
+
 app.use('/auth', authRoutes);
+
+app.get('/', (req, res) => {
+    res.render('index');
+});
+
+
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -67,14 +77,6 @@ app.use(session({
 
 app.use(flash());
 
-mongoose.connect(keys.mongodb.dbURI, () => {
-    console.log('connected to mongodb');
-  });
-
-
-  app.get('/', (req, res) => {
-    res.render('index');
-});
 
 
 // Routes
