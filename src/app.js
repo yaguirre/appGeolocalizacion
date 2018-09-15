@@ -35,6 +35,9 @@ app.use(cookieSession({
 
 
 // Middlewares
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/auth', authRoutes);
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -61,8 +64,7 @@ app.use(session({
 }));
 */
 
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(flash());
 
 mongoose.connect(keys.mongodb.dbURI, () => {
