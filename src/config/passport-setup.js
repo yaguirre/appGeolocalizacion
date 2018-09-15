@@ -1,7 +1,7 @@
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const keys = require('./keys');
-const User = require('../models/user')
+const User = require('../app/models/user');
 
 
 passport.serializeUser((user, done) => {
