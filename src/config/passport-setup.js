@@ -3,8 +3,16 @@ const Auth0Strategy = require('passport-auth0');
 const keys = require('./keys');
 const User = require('../app/models/user');
 
+passport.serializeUser((user,done) => {
+    done(null, user.id);
+});
 
-console.log("ENTRA A PASSPORT SETUP");
+passport.deserializeUser((id,done)=>{
+    User.findById(id).then((user) => {
+        done(null, user);
+    })
+});
+
 passport.use(
     new Auth0Strategy({
         domain: 'marami21.auth0.com',
@@ -15,6 +23,7 @@ passport.use(
         User.findOne({auth0id: profile.user_id}).then((currentUser) => {
             if (currentUser){
                 console.log("User is ", currentUser);
+                done(null,currentUser);
             } else {
                 new User({
                     username: profile.nickname,
@@ -22,6 +31,7 @@ passport.use(
                     name: profile.displayName
                 }).save().then((newUser) => {
                     console.log('new user created:' + newUser);
+                    done(null,newUser);
                 });
             }
         });
