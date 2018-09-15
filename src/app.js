@@ -41,6 +41,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+/* DESCOMENTAR
 var sess = {
     secret: 'CHANGE THIS SECRET',
     cookie: {},
@@ -51,7 +52,7 @@ var sess = {
   if (app.get('env') === 'production') {
     sess.cookie.secure = true; // serve secure cookies, requires https
   }
-
+*/
 /*
 app.use(session({
     secret: 'OHalsjjdflsslrwjs',
@@ -69,7 +70,9 @@ mongoose.connect(keys.mongodb.dbURI, () => {
   });
 
 
-
+  app.get('/', (req, res) => {
+    res.render('index');
+});
 
 
 // Routes
