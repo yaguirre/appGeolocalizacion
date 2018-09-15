@@ -12,14 +12,20 @@ passport.use(
         clientID: keys.auth0.clientID,
         clientSecret: keys.auth0.clientSecret
     }, (accessToken, refreshToken, profile, done) => {
-        console.log("function fired")
-        console.log(profile)
-        new User({
-            username: profile.nickname,
-            auth0id: profile.user_id,
-            name: profile.displayName
-        }).save().then((newUser) => {
-            console.log('new user created:' + newUser);
-        })
+        User.findOne({auth0id: profile.user_id}).then((currentUser) => {
+            if (currentUser){
+                console.log("User is ", currentUser);
+            } else {
+                new User({
+                    username: profile.nickname,
+                    auth0id: profile.user_id,
+                    name: profile.displayName
+                }).save().then((newUser) => {
+                    console.log('new user created:' + newUser);
+                });
+            }
+        });
+
+        
     })
 );
