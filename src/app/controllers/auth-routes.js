@@ -8,18 +8,21 @@ router.get('/login', (req, res) => {
 });
 */
 
-router.get('/login',
+router.get('/login', (req, res) => {
+    res.render('login')
+})
+/*router.get('/login',
     passport.authenticate('auth0', { scope: 'openid email profile' }), function (req, res) {
         res.redirect('login');
     });
+*/
 
 // auth logout
 router.get('/logout', (req, res) => {
     //hadle with passport
-    //res.send('logging out');
+    res.send('logging out');
     //localStorage.removeItem('expires_at');
-    req.logout();
-    res.redirect('/');
+    
     
 });
 
