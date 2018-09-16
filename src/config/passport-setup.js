@@ -10,6 +10,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
     User.findById(id).then((user) => {
+        console.log("EL USARIO DE LA COOKIE ES: ", user);
         done(null, user);
     });
 });
