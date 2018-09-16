@@ -6,9 +6,7 @@ router.get('/login', (req, res) => {
     res.render('login')
 })
 router.get('/auth0',
-    passport.authenticate('auth0', { scope: 'openid email profile' }), function (req, res) {
-        res.redirect('login');
-    });
+    passport.authenticate('auth0', { scope: 'openid email profile' }));
 
 // auth logout
 router.get('/logout', (req, res) => {
