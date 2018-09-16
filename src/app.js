@@ -36,7 +36,7 @@ app.use(session({
     secret: "TETproyecto2",
     resave: false,
     saveUninitialized: false,
-    store: sessionStorage,
+    store: sessionStore,
     cookie: {
         maxAge: 24 * 60 * 60 * 1000,
     }
