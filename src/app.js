@@ -26,11 +26,21 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, './app/views'));
 app.set('view engine', 'ejs');
 
-app.use(cookieSession({
+/*app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
     keys: [keys.session.cookieKey]
   
-}));  
+}));  */
+
+app.use(session({
+    secret: "TETproyecto2",
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStorage,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000,
+    }
+}));
 
 
 // Middlewares
