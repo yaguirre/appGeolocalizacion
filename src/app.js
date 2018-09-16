@@ -26,21 +26,24 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, './app/views'));
 app.set('view engine', 'ejs');
 
-/*app.use(cookieSession({
+app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
     keys: [keys.session.cookieKey]
   
-}));  */
+})); 
 
-app.use(session({
-    secret: "TETproyecto2",
+var sess = {
+    secret: 'CHANGE THIS SECRET',
+    cookie: {},
     resave: false,
-    saveUninitialized: false,
-    store: sessionStore,
-    cookie: {
-        maxAge: 24 * 60 * 60 * 1000,
-    }
-}));
+    saveUninitialized: true
+};
+app.use(session(sess));
+if (app.get('env') === 'production') {
+    sess.cookie.secure = true; // serve secure cookies, requires https
+}
+
+
 
 
 // Middlewares
@@ -50,6 +53,24 @@ app.use(passport.session());
 mongoose.connect(keys.mongodb.dbURI, () => {
     console.log('connected to mongodb');
 });
+
+
+app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+        , root    = namespace.shift()
+        , formParam = root;
+  
+      while(namespace.length) {
+        formParam += '[' + namespace.shift() + ']';
+      }
+      return {
+        param : formParam,
+        msg   : msg,
+        value : value
+      };
+    }
+}));
 
 app.use('/auth', authRoutes);
 
