@@ -4,6 +4,7 @@ const keys = require('./keys');
 const User = require('../app/models/user');
 
 passport.serializeUser((user, done) => {
+    console.log("USER ID: ",user.id);
     done(null, user.id);
 });
 
