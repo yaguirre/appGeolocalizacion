@@ -71,7 +71,7 @@ app.use(expressValidator({
       };
     }
 }));
-
+ 
 app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
