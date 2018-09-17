@@ -43,21 +43,6 @@ if (app.get('env') === 'production') {
     sess.cookie.secure = true; // serve secure cookies, requires https
 }
 
-
-var logout = function() {
-    return function (req, res, next) {
-        req.logout();
-        delete req.session;
-        next();
-    };
- };
-
- router.get('/', logout, function (req, res) {
-     console.log('logged out');
-     res.sendFile(path.resolve('./public/logout.html'));
- })
- 
-
 // Middlewares
 app.use(passport.initialize());
 app.use(passport.session());

@@ -14,6 +14,12 @@ router.get('/login',
     });
 
 
+router.get('/logout', (req,res)=>{
+    req.session.destroy()
+    req.logout()
+    res.redirect('/')
+
+})
     // auth logout
 /*router.get('/logout', (req, res) => {
     //hadle with passport
@@ -22,7 +28,7 @@ router.get('/login',
     res.send("you are logging out");
     
 });*/
-router.get('/logout', logout());
+
 
 // CAMBIAR!!!
 // auth with google
