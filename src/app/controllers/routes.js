@@ -10,7 +10,7 @@ module.exports = (app, passport) => {
         }
     };
     
-    router.get('/', authCheck, (req, res) => {
+    app.get('/', authCheck, (req, res) => {
         res.render('profile', { user: req.user });
     });
 
