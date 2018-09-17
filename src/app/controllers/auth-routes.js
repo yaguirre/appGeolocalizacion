@@ -45,6 +45,14 @@ router.get('/auth0/redirect', passport.authenticate('auth0'), (req, res) => {
 })
 
 
+
+
+module.exports = router;
+
+
+
+
+
 /*const router = require('express').Router();
 const passport = require('passport');
 
