@@ -71,6 +71,8 @@ app.use(expressValidator({
  
 app.use('/auth', authRoutes);
 
+
+//FUNCIONA NO MOVER
 const authCheck = (req, res, next) => {
     if(!req.user){
         res.redirect('/auth/login');
