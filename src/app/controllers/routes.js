@@ -2,8 +2,12 @@ const Location = require('../models/location');
 
 module.exports = (app, passport) => {
 
-    app.get('/', (req,res) => {
-        res.render('index',{req: req});
+
+
+    app.get('/', isLoggedIn, (req, res) => {
+        res.render('index', {
+             user: req.user, isLoggedIn: req.isLogged
+        });
     });
 
 
@@ -12,6 +16,15 @@ module.exports = (app, passport) => {
             user: req.user
         });
     });
+
+    app.get('/profile', isLoggedIn, (req, res) => {
+     res.render('profile', {
+          user: req.user, isLoggedIn: req.isLogged
+     });
+});
+
+
+
 
     app.get('/getUsername',isLoggedIn,(req, res) => {
         res.json({username: req.user.email});
