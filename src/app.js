@@ -105,6 +105,14 @@ app.use(session({
 
 app.use(flash());
 
+//LOGIN BORRAR 
+app.use(function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()){
+        return next();
+    }
+    return res.redirect('/');
+});
+
 
 
 // Routes
