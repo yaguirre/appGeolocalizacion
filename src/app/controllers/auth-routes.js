@@ -15,11 +15,10 @@ router.get('/login',
 
 
 router.get('/logout', (req,res)=>{
-    req.session.destroy()
     req.logout()
     res.redirect('/')
 
-})
+});
     // auth logout
 /*router.get('/logout', (req, res) => {
     //hadle with passport
