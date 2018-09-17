@@ -29,18 +29,12 @@ router.get('/logout', (req,res)=>{
 });*/
 
 
-// CAMBIAR!!!
 // auth with google
 router.get('/auth0', passport.authenticate('auth0', {
     scope: ['profile']
 }));
 
 
-/*
-router.get('/auth0', (req, res) => {
-   res.send('logging in with outh0')
-});
-*/
 
 // callback route for google to redirect to
 router.get('/auth0/redirect', passport.authenticate('auth0'), (req, res) => {
@@ -55,30 +49,9 @@ router.get('/auth0/redirect', passport.authenticate('auth0'), (req, res) => {
 
 module.exports = router;
 
-
-
-
-
-/*const router = require('express').Router();
-const passport = require('passport');
-
-
-router.get('/login', (req, res) => {
-    res.render('login')
-})
-router.get('/auth0',
-    passport.authenticate('auth0', { scope: 'openid email profile' }));
-
-// auth logout
-router.get('/logout', (req, res) => {
-    res.send('logging out');    
-});
-
-
-//callback route for auth0 to redirect
-router.get('/auth0/redirect', passport.authenticate('auth0'), (req,res) => {
-    res.send(req.user);
-});
-
-module.exports = router;
-*/
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()){
+        return next();
+    }
+    return res.redirect('/');
+}

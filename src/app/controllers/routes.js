@@ -3,7 +3,9 @@ const Location = require('../models/location');
 module.exports = (app, passport) => {
 
     app.get('/', (req,res) => {
-        res.render('index');
+        res.render('index', {
+            isLoggedIn: isLoggedIn()
+        });
     });
 
 
