@@ -39,7 +39,7 @@ router.get('/auth0', (req, res) => {
 // callback route for google to redirect to
 router.get('/auth0/redirect', passport.authenticate('auth0'), (req, res) => {
     //res.send(req.user);
-    res.redirect('/');
+    res.redirect('/profile');
 
     //res.send('you reached the callback URI');
 })
