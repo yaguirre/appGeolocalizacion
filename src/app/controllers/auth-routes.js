@@ -13,16 +13,16 @@ router.get('/login',
         res.redirect('login');
     });
 
-// auth logout
-router.get('/logout', (req, res) => {
+
+    // auth logout
+/*router.get('/logout', (req, res) => {
     //hadle with passport
     //res.send('logging out');
     //localStorage.removeItem('expires_at');
     res.send("you are logging out");
-    console.log("LOGGED OUT");
-    res.redirect('/');
     
-});
+});*/
+router.get('/logout', logout());
 
 // CAMBIAR!!!
 // auth with google
