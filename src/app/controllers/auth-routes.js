@@ -18,7 +18,8 @@ router.get('/logout', (req, res) => {
     //hadle with passport
     //res.send('logging out');
     //localStorage.removeItem('expires_at');
-    req.logout();
+    res.send("you are logging out");
+    console.log("LOGGED OUT");
     res.redirect('/');
     
 });
